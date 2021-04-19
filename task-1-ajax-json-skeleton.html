@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AJAX JSON</title>
+
+<script src="jquery-3.2.1.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+</head>
+<style type="text/css">
+    form{
+        margin: 20px 0;
+    }
+    form input, button{
+        padding: 5px;
+    }
+    table{
+        width: 100%;
+        margin-bottom: 20px;
+		border-collapse: collapse;
+    }
+    table, th, td{
+        border: 1px solid #cdcdcd;
+    }
+    table th, table td{
+        padding: 10px;
+        text-align: left;
+    }</style>
+<body>
+<button type="button" id='submitButton'>Fetch Data</button>
+<br><br>
+
+
+
+<table class="tabel" style="color:black">
+<tr>
+<th>Name</th>
+<th>Designation</th>
+<th>Salary</th>
+<th>Joining Date</th>
+<th>Office</th>
+<th>Extension</th>
+</tr>
+</table>
+
+
+
+<script>
+
+$(document).ready(function(){
+	$('#submitButton').click(function(){
+	
+	
+	$.ajaxSetup({
+         headers : {
+           'Access-Control-Allow-Origin' : '*'
+         }
+      });
+		
+$.ajax({    
+     type: 'GET', 
+	 url: "emp_data.json",
+    data: { get_param: 'value' }, 
+    dataType: 'json',
+	
+	
+    success: function (data) { 
+		  
+		
+		
+	    var employee_data='';
+        $.each(data.empolyees, function(key, value) {
+	
+            employee_data+="<tr>";
+			employee_data+="<td>"+value.name+"</td>";
+			employee_data+="<td>"+value.designation+"</td>";
+			employee_data+="<td>"+value.salary+"</td>";
+			employee_data+="<td>"+value.joining_date+"</td>";
+			employee_data+="<td>"+value.office+"</td>";
+			employee_data+="<td>"+value.extension+"</td>";
+			employee_data+="</tr>";
+        });
+	
+        $(".tabel").append(employee_data);		
+    }
+	
+
+});
+		
+		
+		
+	});
+})
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>AJAX JSON</title>
+
+<script src="jquery-3.2.1.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+</head>
+<style>
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}
+</style>
+<body>
+<button type="button" id='submitButton'>Fetch Data</button>
+<br><br>
+
+
+
+<table class="tabel" style="color:black">
+<tr>
+<th>TITLE</th>
+<th>ARTIST</th>
+<th>COUNTRY</th>
+<th>COMPANY</th>
+<th>PRICE</th>
+<th>YEAR</th>
+</tr>
+</table>
+
+
+
+<script>
+
+$(document).ready(function(){
+	$('#submitButton').click(function(){
+	
+	$.ajaxSetup({
+         headers : {
+           'Access-Control-Allow-Origin' : '*'
+         }
+      });
+		
+$.ajax({ 
+type: 'GET',
+ url: 'cd_catalog.xml', 
+ dataType: 'xml',
+
+ success: function(xml){
+			var catalogg='';
+            $('CATALOG', xml).each(function() {
+			$('CD', xml).each(function() {
+			catalogg+="<tr>";
+			catalogg+= "<td>"+$(this).find('TITLE').text()+"</td>";
+			catalogg+= "<td>"+$(this).find('ARTIST').text()+"</td>";
+			catalogg+= "<td>"+$(this).find('COUNTRY').text()+"</td>";
+			catalogg+= "<td>"+$(this).find('COMPANY').text()+"</td>";	
+			if($(this).find("PRICE").attr("currency")){
+			catalogg+= "<td>"+$(this).find('PRICE').text()+" $"+"</td>";
+			}
+			else{
+				catalogg+= "<td>"+$(this).find('PRICE').text()+"</td>";
+			}
+			catalogg+= "<td>"+$(this).find('YEAR').text()+"</td>";
+			catalogg+="</tr>";
+					
+			
+			});   });      
+            
+		$(".tabel").append(catalogg);
+			}
+			
+			
+			});
+		
+		
+		
+	});
+})
+
+</script>
+
+</body>
+</html>
