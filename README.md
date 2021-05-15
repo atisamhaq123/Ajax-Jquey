@@ -1,4 +1,4 @@
-# Ajax-Jquey
+# Ajax-Jquey.
 How to Fetch data using Ajax and Jquery from a JSON file. What i learned here is when you call ajax script using JQuery, most of the calls or requests are blocked by the browser.
 <h3>Headers</h3>
 Use headers to avoid it and you can implement this script to call Big datasets of json from online or offline portals
